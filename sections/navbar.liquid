@@ -22,13 +22,13 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background color",
-      "default": "#333333"
+      "default": "#4A4A4A"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text color",
-      "default": "#ffffff"
+      "default": "#FFFFFF"
     },
     {
       "type": "checkbox",
@@ -61,22 +61,46 @@
       "name": "GRIFF Navbar",
       "blocks": [
         {
-          "type": "menu_item"
+          "type": "menu_item",
+          "settings": {
+            "title": "New Music",
+            "link": "/collections/new-music"
+          }
         },
         {
-          "type": "menu_item"
+          "type": "menu_item",
+          "settings": {
+            "title": "Tour",
+            "link": "/pages/tour"
+          }
         },
         {
-          "type": "menu_item"
+          "type": "menu_item",
+          "settings": {
+            "title": "Videos",
+            "link": "/pages/videos"
+          }
         },
         {
-          "type": "menu_item"
+          "type": "menu_item",
+          "settings": {
+            "title": "Music Store",
+            "link": "/collections/all"
+          }
         },
         {
-          "type": "menu_item"
+          "type": "menu_item",
+          "settings": {
+            "title": "Merch",
+            "link": "/collections/merch"
+          }
         },
         {
-          "type": "menu_item"
+          "type": "menu_item",
+          "settings": {
+            "title": "Sign Up",
+            "link": "/pages/newsletter"
+          }
         }
       ]
     }
@@ -98,13 +122,15 @@
   #navbar-wrapper a {
     color: {{ section.settings.text_color }};
     text-decoration: none;
-    font-size: 14px;
-    text-transform: uppercase;
+    font-size: 16px;
+    text-transform: none;
     letter-spacing: 1px;
+    font-family: 'Times New Roman', serif;
   }
   .nav-menu {
     display: flex;
-    gap: 20px;
+    gap: 30px;
+    margin: 0 auto;
   }
   .social-icons {
     display: flex;
@@ -136,7 +162,7 @@
         alt: shop.name
       }}
     {% else %}
-      <span style="font-size: 24px; font-weight: bold;">GRIFF</span>
+      <span style="font-size: 24px; font-weight: bold; font-family: 'Times New Roman', serif;">GRIFF</span>
     {% endif %}
   </a>
   
