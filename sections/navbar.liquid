@@ -1,213 +1,154 @@
 {% schema %}
 {
-  "name": "Singer Navbar",
+  "name": "GRIFF Navbar",
   "limit": 1,
   "settings": [
     {
-      "type": "text",
-      "id": "artist_name",
-      "label": "Artist Name",
-      "default": "Nena"
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo"
     },
     {
-      "type": "header",
-      "content": "Styling"
+      "type": "range",
+      "id": "logo_width",
+      "min": 50,
+      "max": 250,
+      "step": 10,
+      "unit": "px",
+      "label": "Logo width",
+      "default": 100
     },
     {
-      "type": "select",
+      "type": "color",
       "id": "bg_color",
       "label": "Background color",
-      "default": "bg-dark",
-      "options": [
-        { "value": "bg-primary", "label": "Primary" },
-        { "value": "bg-secondary", "label": "Secondary" },
-        { "value": "bg-dark", "label": "Dark" },
-        { "value": "bg-light", "label": "Light" }
-      ]
+      "default": "#333333"
     },
     {
-      "type": "select",
+      "type": "color",
       "id": "text_color",
       "label": "Text color",
-      "default": "text-light",
-      "options": [
-        { "value": "text-primary", "label": "Primary" },
-        { "value": "text-secondary", "label": "Secondary" },
-        { "value": "text-dark", "label": "Dark" },
-        { "value": "text-light", "label": "Light" }
-      ]
-    },
-    {
-      "type": "select",
-      "id": "shadow",
-      "label": "Shadow",
-      "options": [
-        { "value": "shadow-sm", "label": "Yes" },
-        { "value": "", "label": "No" }
-      ],
-      "default": "shadow-sm"
+      "default": "#ffffff"
     }
   ],
   "blocks": [
     {
-      "type": "mobile",
-      "name": "Mobile",
-      "limit": 1,
+      "type": "menu_item",
+      "name": "Menu Item",
       "settings": [
         {
-          "type": "image_picker",
-          "id": "logo",
-          "label": "Logo"
+          "type": "text",
+          "id": "title",
+          "label": "Menu item",
+          "default": "Menu item"
         },
         {
-          "type": "range",
-          "id": "logo_height",
-          "label": "Logo height",
-          "min": 20,
-          "max": 100,
-          "step": 2,
-          "default": 40
-        },
-        {
-          "type": "checkbox",
-          "id": "show_music_player",
-          "label": "Show music player",
-          "default": true
-        }
-      ]
-    },
-    {
-      "type": "desktop",
-      "name": "Desktop",
-      "limit": 1,
-      "settings": [
-        {
-          "type": "image_picker",
-          "id": "logo",
-          "label": "Logo"
-        },
-        {
-          "type": "range",
-          "id": "logo_height",
-          "label": "Logo height",
-          "min": 20,
-          "max": 100,
-          "step": 2,
-          "default": 40
-        },
-        {
-          "type": "checkbox",
-          "id": "show_music_player",
-          "label": "Show music player",
-          "default": true
+          "type": "url",
+          "id": "link",
+          "label": "Link"
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Singer Navbar"
+      "name": "GRIFF Navbar",
+      "blocks": [
+        {
+          "type": "menu_item"
+        },
+        {
+          "type": "menu_item"
+        },
+        {
+          "type": "menu_item"
+        },
+        {
+          "type": "menu_item"
+        },
+        {
+          "type": "menu_item"
+        },
+        {
+          "type": "menu_item"
+        }
+      ]
     }
   ]
 }
 {% endschema %}
 
-<navbar-wrapper 
-  id="navbar-wrapper"
-  class="
-    {{ section.settings.bg_color }} 
-    {{ section.settings.text_color }} 
-    {{ section.settings.shadow }}
-  ">
-  {% for block in section.blocks %}
-    {% if block.type == 'mobile' %}
-      <nav 
-        id="navbar-mobile" 
-        class="navbar d-lg-none p-2"
-        {{ block.shopify_attributes }}>
-        <div class="container-fluid">
-          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <a class="navbar-brand mx-auto" href="{{ routes.root_url }}">
-            {% if block.settings.logo != blank %}
-              {{ block.settings.logo | image_url: width: 200 | image_tag:
-                class: 'img-fluid',
-                width: block.settings.logo_height,
-                height: '',
-                alt: section.settings.artist_name
-              }}
-            {% else %}
-              {{ section.settings.artist_name }}
-            {% endif %}
-          </a>
-          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-            <div class="offcanvas-header">
-              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-            </div>
-            <div class="offcanvas-body">
-              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ routes.root_url }}">Home</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/pages/music">Music</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/pages/concerts">Concerts</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/collections/all">Merchandise</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/pages/about">About</a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="/pages/contact">Contact</a>
-                </li>
-              </ul>
-              {% if block.settings.show_music_player %}
-                <div class="mt-3">
-                  <!-- Add your music player component here -->
-                  <p>Music Player Placeholder</p>
-                </div>
-              {% endif %}
-              <div class="mt-3">
-                {% render 'social-icons' %}
-              </div>
-            </div>
-          </div>
-        </div>
-      </nav>
+<style>
+  #shopify-section-{{ section.id }} {
+    background-color: {{ section.settings.bg_color }};
+  }
+  #navbar-wrapper {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  #navbar-wrapper a {
+    color: {{ section.settings.text_color }};
+    text-decoration: none;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .nav-menu {
+    display: flex;
+    gap: 20px;
+  }
+  .social-icons {
+    display: flex;
+    gap: 15px;
+  }
+  .social-icons svg {
+    width: 20px;
+    height: 20px;
+    fill: {{ section.settings.text_color }};
+  }
+  @media (max-width: 768px) {
+    #navbar-wrapper {
+      flex-direction: column;
+      align-items: center;
+      padding: 20px;
+    }
+    .nav-menu, .social-icons {
+      margin-top: 20px;
+    }
+  }
+</style>
+
+<div id="navbar-wrapper">
+  <a href="{{ routes.root_url }}" class="logo">
+    {% if section.settings.logo != blank %}
+      {{ section.settings.logo | image_url: width: section.settings.logo_width | image_tag:
+        width: section.settings.logo_width,
+        height: '',
+        alt: shop.name
+      }}
     {% else %}
-      <nav 
-        id="navbar-desktop" 
-        class="navbar navbar-expand-lg d-none d-lg-flex p-2"
-        {{ block.shopify_attributes }}>
-        <div class="container-fluid">
-          <a class="navbar-brand me-4" href="{{ routes.root_url }}">
-            {{ section.settings.artist_name }}
-          </a>
-          <div class="navbar-nav flex-grow-1">
-            <a class="nav-link" href="{{ routes.root_url }}">Home</a>
-            <a class="nav-link" href="/pages/music">Music</a>
-            <a class="nav-link" href="/pages/concerts">Concerts</a>
-            <a class="nav-link" href="/collections/all">Merchandise</a>
-            <a class="nav-link" href="/pages/about">About</a>
-            <a class="nav-link" href="/pages/contact">Contact</a>
-          </div>
-          {% if block.settings.show_music_player %}
-            <div class="mx-3">
-              <!-- Add your music player component here -->
-              <p class="m-0">Music Player</p>
-            </div>
-          {% endif %}
-          <div class="navbar-nav">
-            {% render 'social-icons' %}
-          </div>
-        </div>
-      </nav>
+      <span style="font-size: 24px; font-weight: bold;">GRIFF</span>
     {% endif %}
-  {% endfor %}
-</navbar-wrapper>
+  </a>
+  
+  <nav class="nav-menu">
+    {% for block in section.blocks %}
+      {% if block.settings.title != blank and block.settings.link != blank %}
+        <a href="{{ block.settings.link }}">{{ block.settings.title }}</a>
+      {% endif %}
+    {% endfor %}
+  </nav>
+  
+  <div class="social-icons">
+    <a href="#" aria-label="Facebook">{% render 'icon-facebook' %}</a>
+    <a href="#" aria-label="Twitter">{% render 'icon-twitter' %}</a>
+    <a href="#" aria-label="Instagram">{% render 'icon-instagram' %}</a>
+    <a href="#" aria-label="YouTube">{% render 'icon-youtube' %}</a>
+    <a href="#" aria-label="Spotify">{% render 'icon-spotify' %}</a>
+    <a href="#" aria-label="Apple Music">{% render 'icon-apple-music' %}</a>
+    <a href="#" aria-label="TikTok">{% render 'icon-tiktok' %}</a>
+    <a href="#" aria-label="WhatsApp">{% render 'icon-whatsapp' %}</a>
+  </div>
+</div>
