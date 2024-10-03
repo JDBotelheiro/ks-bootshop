@@ -1099,6 +1099,11 @@
       },
       {
         "type": "text",
+        "id": "social_spotify",
+        "label": "Spotify URL",
+      },
+      {
+        "type": "text",
         "id": "social_snapchat",
         "label": "Snapchat"
       },
