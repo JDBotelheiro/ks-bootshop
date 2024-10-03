@@ -1,8 +1,26 @@
 {% schema %}
 {
-  "name": "GRIFF Navbar",
+  "name": "NENA Navbar",
   "limit": 1,
   "settings": [
+    {
+      "type": "text",
+      "id": "announcement_text",
+      "label": "Announcement Text",
+      "default": "Free Shipping For All Orders Over $100"
+    },
+    {
+      "type": "color",
+      "id": "announcement_bg_color",
+      "label": "Announcement Background Color",
+      "default": "#4A90E2"
+    },
+    {
+      "type": "color",
+      "id": "announcement_text_color",
+      "label": "Announcement Text Color",
+      "default": "#FFFFFF"
+    },
     {
       "type": "image_picker",
       "id": "logo",
@@ -22,19 +40,13 @@
       "type": "color",
       "id": "bg_color",
       "label": "Background color",
-      "default": "#4A4A4A"
+      "default": "#FFFFFF"
     },
     {
       "type": "color",
       "id": "text_color",
       "label": "Text color",
-      "default": "#FFFFFF"
-    },
-    {
-      "type": "checkbox",
-      "id": "show_social_icons",
-      "label": "Show social icons",
-      "default": true
+      "default": "#000000"
     }
   ],
   "blocks": [
@@ -58,7 +70,7 @@
   ],
   "presets": [
     {
-      "name": "GRIFF Navbar",
+      "name": "NENA Navbar",
       "blocks": [
         {
           "type": "menu_item",
@@ -109,32 +121,43 @@
 {% endschema %}
 
 <style>
+  .announcement-bar {
+    background-color: {{ section.settings.announcement_bg_color }};
+    color: {{ section.settings.announcement_text_color }};
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+  }
   #shopify-section-{{ section.id }} {
     background-color: {{ section.settings.bg_color }};
     color: {{ section.settings.text_color }};
+    border-bottom: 1px solid #E5E5E5;
   }
   #navbar-wrapper {
-    padding: 10px 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+    padding: 10px 20px;
+  }
+  .logo {
+    flex: 0 0 auto;
+  }
+  .nav-menu {
+    display: flex;
+    justify-content: center;
+    flex: 1 1 auto;
+    gap: 30px;
   }
   #navbar-wrapper a {
     color: {{ section.settings.text_color }};
     text-decoration: none;
     font-size: 16px;
-    text-transform: none;
-    letter-spacing: 1px;
-    font-family: 'Times New Roman', serif;
-  }
-  .nav-menu {
-    display: flex;
-    gap: 30px;
-    margin: 0 auto;
+    font-family: Arial, sans-serif;
   }
   .social-icons {
     display: flex;
     gap: 15px;
+    flex: 0 0 auto;
   }
   .social-icons svg {
     width: 20px;
@@ -145,13 +168,16 @@
     #navbar-wrapper {
       flex-direction: column;
       align-items: center;
-      padding: 20px;
     }
     .nav-menu, .social-icons {
       margin-top: 20px;
     }
   }
 </style>
+
+<div class="announcement-bar">
+  {{ section.settings.announcement_text }}
+</div>
 
 <div id="navbar-wrapper">
   <a href="{{ routes.root_url }}" class="logo">
@@ -162,7 +188,7 @@
         alt: shop.name
       }}
     {% else %}
-      <span style="font-size: 24px; font-weight: bold; font-family: 'Times New Roman', serif;">NENA</span>
+      <span style="font-size: 24px; font-weight: bold;">NENA</span>
     {% endif %}
   </a>
   
@@ -174,9 +200,7 @@
     {% endfor %}
   </nav>
   
-  {% if section.settings.show_social_icons %}
-    <div class="social-icons">
-      {% render 'social-icons', icon_size: 20 %}
-    </div>
-  {% endif %}
+  <div class="social-icons">
+    {% render 'social-icons', icon_size: 20 %}
+  </div>
 </div>
