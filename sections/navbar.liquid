@@ -53,7 +53,7 @@
     display: flex;
     justify-content: center;
     flex: 1 1 auto;
-    gap: 30px;
+    gap: 40px; /* Increased gap for better spacing with fewer items */
   }
   #navbar-wrapper a {
     color: {{ section.settings.text_color }};
@@ -79,6 +79,9 @@
     .nav-menu, .social-icons {
       margin-top: 20px;
     }
+    .nav-menu {
+      gap: 20px; /* Reduced gap for mobile view */
+    }
   }
 </style>
 
@@ -96,12 +99,9 @@
   </a>
   
   <nav class="nav-menu">
-    <a href="/collections/novas-musicas">Novas Músicas</a>
     <a href="/pages/concertos">Concertos</a>
     <a href="/pages/videos">Vídeos</a>
-    <a href="/collections/all">Loja de Música</a>
     <a href="/collections/merch">Merch</a>
-    <a href="/pages/newsletter">Inscreva-se</a>
   </nav>
   
   <div class="social-icons">
