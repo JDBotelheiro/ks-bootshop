@@ -1,151 +1,75 @@
 {% schema %}
 {
-  "name": "Album Promo Hero",
+  "name": "Simple Hero",
   "settings": [
     {
-      "type": "video",
-      "id": "background_video",
-      "label": "Background Video"
-    },
-    {
       "type": "text",
-      "id": "album_name",
-      "label": "Album Name",
-      "default": "vertigo"
-    },
-    {
-      "type": "text",
-      "id": "album_subtitle",
-      "label": "Album Subtitle",
-      "default": "the album"
+      "id": "hero_text",
+      "label": "Hero Text",
+      "default": "Welcome to NENA's World"
     },
     {
       "type": "text",
       "id": "cta_text",
-      "label": "Call to Action Text",
-      "default": "LISTEN"
+      "label": "Button Text",
+      "default": "LISTEN NOW"
     },
     {
       "type": "url",
       "id": "cta_link",
-      "label": "Call to Action Link"
+      "label": "Button Link"
     }
   ],
   "presets": [
     {
-      "name": "Album Promo Hero"
+      "name": "Simple Hero",
+      "category": "Custom Sections"
     }
   ]
 }
 {% endschema %}
 
-<div id="hero-carousel-{{ section.id }}" class="hero-carousel">
-  <div class="carousel-inner">
-    <div class="carousel-item active">
-      <div class="media-wrapper">
-        {% if section.settings.background_video != blank %}
-          <video autoplay loop muted playsinline>
-            <source src="{{ section.settings.background_video | file_url }}" type="video/mp4">
-            Your browser does not support the video tag.
-          </video>
-        {% else %}
-          {{ 'lifestyle-1' | placeholder_svg_tag }}
-        {% endif %}
-      </div>
-      <div class="carousel-caption">
-        <div class="carousel-caption-inner">
-          <h2 class="title">
-            {{ section.settings.album_name }}................{{ section.settings.album_subtitle }}
-          </h2>
-          <p class="subtitle">Out now</p>
-          {% if section.settings.cta_link != blank %}
-            <div class="btn-wrapper">
-              <a id="listen-button-{{ section.id }}" class="btn btn-light" href="{{ section.settings.cta_link }}" target="_blank">
-                {{ section.settings.cta_text }}
-              </a>
-            </div>
-          {% endif %}
-        </div>
-      </div>
-    </div>
+<div class="simple-hero">
+  <div class="hero-content">
+    <h1>{{ section.settings.hero_text }}</h1>
+    {% if section.settings.cta_link != blank %}
+      <a href="{{ section.settings.cta_link }}" class="cta-button">
+        {{ section.settings.cta_text }}
+      </a>
+    {% endif %}
   </div>
 </div>
 
 <style>
-  #hero-carousel-{{ section.id }} {
-    position: relative;
-    overflow: hidden;
-    height: 100vh;
-    width: 100%;
-  }
-  #hero-carousel-{{ section.id }} .media-wrapper {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-  }
-  #hero-carousel-{{ section.id }} video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-  #hero-carousel-{{ section.id }} .carousel-caption {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 2;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
-  }
-  #hero-carousel-{{ section.id }} .carousel-caption-inner {
+  .simple-hero {
+    height: calc(100vh - 100px); /* Adjust based on your header height */
     display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: flex-end;
-    height: 50vh;
+    justify-content: center;
+    text-align: center;
+    background-color: #f0f0f0; /* Light grey background */
   }
-  #hero-carousel-{{ section.id }} .title {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    font-weight: normal;
-    font-style: italic;
+
+  .hero-content {
+    padding: 20px;
   }
-  #hero-carousel-{{ section.id }} .subtitle {
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+
+  .hero-content h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
   }
-  #hero-carousel-{{ section.id }} .btn-light {
-    background-color: white;
-    color: black;
-    border: none;
-    padding: 10px 30px;
-    font-size: 1rem;
-    text-transform: uppercase;
+
+  .cta-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #000;
+    color: #fff;
+    text-decoration: none;
     font-weight: bold;
     border-radius: 5px;
-    cursor: pointer;
-    z-index: 3;
-    position: relative;
   }
-  #hero-carousel-{{ section.id }} .btn-light:hover {
-    background-color: #f0f0f0;
+
+  .cta-button:hover {
+    background-color: #333;
   }
 </style>
-
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    var listenButton = document.getElementById('listen-button-{{ section.id }}');
-    if (listenButton) {
-      listenButton.addEventListener('click', function(event) {
-        console.log('Listen button clicked!');
-        // Uncomment the next line to prevent the default link behavior for testing
-        // event.preventDefault();
-      });
-    }
-  });
-</script>
