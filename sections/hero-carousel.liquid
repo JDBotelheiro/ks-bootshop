@@ -60,7 +60,7 @@
           <p class="subtitle">Out now</p>
           {% if section.settings.cta_link != blank %}
             <div class="btn-wrapper">
-              <a class="btn btn-light" href="{{ section.settings.cta_link }}">
+              <a id="listen-button-{{ section.id }}" class="btn btn-light" href="{{ section.settings.cta_link }}" target="_blank">
                 {{ section.settings.cta_text }}
               </a>
             </div>
@@ -128,8 +128,24 @@
     text-transform: uppercase;
     font-weight: bold;
     border-radius: 5px;
+    cursor: pointer;
+    z-index: 3;
+    position: relative;
   }
   #hero-carousel-{{ section.id }} .btn-light:hover {
     background-color: #f0f0f0;
   }
 </style>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var listenButton = document.getElementById('listen-button-{{ section.id }}');
+    if (listenButton) {
+      listenButton.addEventListener('click', function(event) {
+        console.log('Listen button clicked!');
+        // Uncomment the next line to prevent the default link behavior for testing
+        // event.preventDefault();
+      });
+    }
+  });
+</script>
