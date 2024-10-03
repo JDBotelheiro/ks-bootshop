@@ -11,12 +11,14 @@
   "sections": {
     "hero_carousel_CmDneU": {
       "type": "hero-carousel",
+      "custom_css": [
+
+      ],
       "settings": {
-        "video_url": "https://www.youtube.com/watch?v=xbibCPr7R6Y",
         "album_name": "vertigo",
         "album_subtitle": "the album",
         "cta_text": "LISTEN",
-        "cta_link": ""
+        "cta_link": "https://www.officialgriff.com/"
       }
     },
     "featured_products_nXJKQn": {
