@@ -1,8 +1,14 @@
 {% schema %}
 {
-  "name": "Nena",
+  "name": "Singer Navbar",
   "limit": 1,
   "settings": [
+    {
+      "type": "text",
+      "id": "artist_name",
+      "label": "Artist Name",
+      "default": "Nena"
+    },
     {
       "type": "header",
       "content": "Styling"
@@ -18,16 +24,6 @@
         { "value": "bg-dark", "label": "Dark" },
         { "value": "bg-light", "label": "Light" }
       ]
-    },
-    {
-      "type": "range",
-      "id": "bg_opacity",
-      "label": "Background opacity",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "default": 100,
-      "unit": "%"
     },
     {
       "type": "select",
@@ -73,21 +69,9 @@
           "default": 40
         },
         {
-          "type": "link_list",
-          "id": "main_menu",
-          "label": "Main menu",
-          "default": "main-menu"
-        },
-        {
           "type": "checkbox",
           "id": "show_music_player",
           "label": "Show music player",
-          "default": true
-        },
-        {
-          "type": "checkbox",
-          "id": "social_icons",
-          "label": "Show social icons",
           "default": true
         }
       ]
@@ -112,12 +96,6 @@
           "default": 40
         },
         {
-          "type": "link_list",
-          "id": "main_menu",
-          "label": "Main menu",
-          "default": "main-menu"
-        },
-        {
           "type": "checkbox",
           "id": "show_music_player",
           "label": "Show music player",
@@ -140,15 +118,12 @@
     {{ section.settings.bg_color }} 
     {{ section.settings.text_color }} 
     {{ section.settings.shadow }}
-  "
-  style="
-    --bs-bg-opacity: {{ section.settings.bg_opacity | append: '%' }};
   ">
   {% for block in section.blocks %}
     {% if block.type == 'mobile' %}
       <nav 
         id="navbar-mobile" 
-        class="navbar d-lg-none p-0"
+        class="navbar d-lg-none p-2"
         {{ block.shopify_attributes }}>
         <div class="container-fluid">
           <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
@@ -160,10 +135,10 @@
                 class: 'img-fluid',
                 width: block.settings.logo_height,
                 height: '',
-                alt: shop.name
+                alt: section.settings.artist_name
               }}
             {% else %}
-              {{ shop.name }}
+              {{ section.settings.artist_name }}
             {% endif %}
           </a>
           <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
@@ -173,11 +148,24 @@
             </div>
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
-                {% for link in linklists[block.settings.main_menu].links %}
-                  <li class="nav-item">
-                    <a class="nav-link" href="{{ link.url }}">{{ link.title }}</a>
-                  </li>
-                {% endfor %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ routes.root_url }}">Home</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/pages/music">Music</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/pages/concerts">Concerts</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/collections/all">Merchandise</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/pages/about">About</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="/pages/contact">Contact</a>
+                </li>
               </ul>
               {% if block.settings.show_music_player %}
                 <div class="mt-3">
@@ -185,11 +173,9 @@
                   <p>Music Player Placeholder</p>
                 </div>
               {% endif %}
-              {% if block.settings.social_icons %}
-                <div class="mt-3">
-                  {% render 'social-icons' %}
-                </div>
-              {% endif %}
+              <div class="mt-3">
+                {% render 'social-icons' %}
+              </div>
             </div>
           </div>
         </div>
@@ -197,35 +183,28 @@
     {% else %}
       <nav 
         id="navbar-desktop" 
-        class="navbar navbar-expand-lg d-none d-lg-block p-0"
+        class="navbar navbar-expand-lg d-none d-lg-flex p-2"
         {{ block.shopify_attributes }}>
         <div class="container-fluid">
-          <a class="navbar-brand" href="{{ routes.root_url }}">
-            {% if block.settings.logo != blank %}
-              {{ block.settings.logo | image_url: width: 200 | image_tag:
-                class: 'img-fluid',
-                width: block.settings.logo_height,
-                height: '',
-                alt: shop.name
-              }}
-            {% else %}
-              {{ shop.name }}
-            {% endif %}
+          <a class="navbar-brand me-4" href="{{ routes.root_url }}">
+            {{ section.settings.artist_name }}
           </a>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              {% for link in linklists[block.settings.main_menu].links %}
-                <li class="nav-item">
-                  <a class="nav-link" href="{{ link.url }}">{{ link.title }}</a>
-                </li>
-              {% endfor %}
-            </ul>
-            {% if block.settings.show_music_player %}
-              <div class="ms-auto">
-                <!-- Add your music player component here -->
-                <p>Music Player Placeholder</p>
-              </div>
-            {% endif %}
+          <div class="navbar-nav flex-grow-1">
+            <a class="nav-link" href="{{ routes.root_url }}">Home</a>
+            <a class="nav-link" href="/pages/music">Music</a>
+            <a class="nav-link" href="/pages/concerts">Concerts</a>
+            <a class="nav-link" href="/collections/all">Merchandise</a>
+            <a class="nav-link" href="/pages/about">About</a>
+            <a class="nav-link" href="/pages/contact">Contact</a>
+          </div>
+          {% if block.settings.show_music_player %}
+            <div class="mx-3">
+              <!-- Add your music player component here -->
+              <p class="m-0">Music Player</p>
+            </div>
+          {% endif %}
+          <div class="navbar-nav">
+            {% render 'social-icons' %}
           </div>
         </div>
       </nav>
