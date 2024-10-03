@@ -1,124 +1,6 @@
-<navbar-wrapper 
-  id="navbar-wrapper"
-  class="
-    {{ section.settings.bg_color }} 
-    {{ section.settings.bg_gradient }}
-    {{ section.settings.text_color }} 
-    {{ section.settings.border_top_width | prepend: 'border-top-' }}
-    {{ section.settings.border_bottom_width | prepend: 'border-bottom-' }}
-    {{ section.settings.border_color }} 
-    {{ section.settings.shadow }}
-  "
-  style="
-    --bs-bg-opacity: {{ section.settings.bg_opacity | append: '%' }};
-    --bs-border-opacity: {{ section.settings.border_opacity | append: '%' }};
-  ">
-  {% for block in section.blocks %}
-    {% if block.type == 'mobile' %}
-      <nav 
-        id="navbar-mobile" 
-        class="navbar d-desktop-none p-0"
-        {{ block.shopify_attributes }}>
-        <div 
-          class="container d-block {{ block.settings.pt | prepend: 'pt-' }} {{  block.settings.pb | prepend: 'pb-' }}"
-          style="max-width: {{ block.settings.container_max_width | append: 'px' }};">
-          <div class="row align-items-center">
-            <div class="col-5">
-              <ul class="nav flex-nowrap">
-                <li class="nav-item">
-                  <a 
-                    class="nav-link nav-link-icon ms-n3"
-                    href="#offcanvas-menu" 
-                    data-bs-toggle="offcanvas" 
-                    aria-controls="offcanvas-menu"
-                    aria-label="{{ 'general.accessibility.menu' | t }}"
-                    role="button">
-                    {% render 'svg-icons', icon: 'menu' %}
-                  </a>
-                </li>
-                {% if shop.customer_accounts_enabled %}
-                  <li class="nav-item">
-                    <a 
-                      class="nav-link nav-link-icon {% if template.name == 'login' or template.name == 'account' %}active{% endif %}" 
-                      aria-current="{% if template.name == 'login' or template.name == 'account' %}page{% endif %}" 
-                      href="{{ routes.account_url }}"
-                      aria-label="{{ 'general.accessibility.account' | t }}">
-                      {% render 'svg-icons', icon: 'account' %}
-                    </a>
-                  </li>
-                {% endif %}
-              </ul>
-            </div>
-            <div class="col-8 text-center">
-              {% render 'navbar-logo', block: block %}
-            </div>
-            <div class="col-5">
-              <ul class="nav flex-nowrap justify-content-end">
-                {% if settings.search %}
-                  <li class="nav-item">
-                    <a
-                      class="nav-link nav-link-icon" 
-                      href="#offcanvas-search" 
-                      data-bs-toggle="offcanvas"
-                      aria-controls="offcanvas-search" 
-                      aria-label="{{ 'general.accessibility.search' | t }}"
-                      role="button">
-                      {% render 'svg-icons', icon: 'search' %}
-                    </a>
-                  </li>
-                {% endif %}
-                <li class="nav-item">
-                  <a 
-                    class="nav-link nav-link-icon me-n3" 
-                    href="#offcanvas-cart" 
-                    data-bs-toggle="offcanvas" 
-                    aria-controls="offcanvas-cart" 
-                    aria-label="{{ 'general.accessibility.cart' | t }} {{ cart.item_count }}"
-                    role="button">
-                    {% render 'svg-icons', icon: 'cart' %}
-                    {% render 'cart-count-badge' %}
-                  </a>  
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div> 
-      </nav>
-    {% else %}
-      <nav 
-        id="navbar-desktop" 
-        class="navbar d-none d-desktop-block p-0"
-        {{ block.shopify_attributes }}>
-        <div 
-          class="container d-block {{ block.settings.pt | prepend: 'pt-' }} {{  block.settings.pb | prepend: 'pb-' }}"
-          style="max-width: {{ block.settings.container_max_width | append: 'px' }};">
-          <div
-            class="row align-items-center flex-grow-1">
-            <div class="col-4">
-              {% render 'navbar-logo', block: block %}
-            </div>
-            <div class="col-10">
-              {% render 'navbar-desktop-menu', block: block %}
-            </div>
-            <div class="col-4">
-              {% render 'navbar-desktop-icons', block: block %}
-            </div>
-          </div>
-        </div>
-      </nav>
-    {% endif %}
-  {% endfor %}
-</navbar-wrapper>
- 
-{% for block in section.blocks %}
-  {% if block.type == 'mobile' %}
-    {% render 'offcanvas-menu', block: block %}
-  {% endif %}
-{% endfor %}
- 
 {% schema %}
 {
-  "name": "Navbar",
+  "name": "Nena",
   "limit": 1,
   "settings": [
     {
@@ -129,12 +11,12 @@
       "type": "select",
       "id": "bg_color",
       "label": "Background color",
-      "default": "bg-body",
+      "default": "bg-dark",
       "options": [
         { "value": "bg-primary", "label": "Primary" },
         { "value": "bg-secondary", "label": "Secondary" },
-        { "value": "bg-body", "label": "Body" },
-        { "value": "bg-white", "label": "White" }
+        { "value": "bg-dark", "label": "Dark" },
+        { "value": "bg-light", "label": "Light" }
       ]
     },
     {
@@ -149,67 +31,15 @@
     },
     {
       "type": "select",
-      "id": "bg_gradient",
-      "label": "Background gradient",
-      "options": [
-        { "value": "bg-gradient", "label": "Yes" },
-        { "value": "", "label": "No" }
-      ],
-      "default": ""
-    },
-    {
-      "type": "select",
       "id": "text_color",
       "label": "Text color",
-      "default": "text-body",
+      "default": "text-light",
       "options": [
         { "value": "text-primary", "label": "Primary" },
         { "value": "text-secondary", "label": "Secondary" },
-        { "value": "text-body", "label": "Body" },
-        { "value": "text-white", "label": "White" }
+        { "value": "text-dark", "label": "Dark" },
+        { "value": "text-light", "label": "Light" }
       ]
-    },
-    {
-      "type": "range",
-      "id": "border_top_width",
-      "label": "Border top width",
-      "default": 0,
-      "min": 0,
-      "max": 16,
-      "step": 1,
-      "unit": "px"
-    },
-    {
-      "type": "range",
-      "id": "border_bottom_width",
-      "label": "Border bottom width",
-      "default": 0,
-      "min": 0,
-      "max": 16,
-      "step": 1,
-      "unit": "px"
-    },
-    {
-      "type": "select",
-      "id": "border_color",
-      "label": "Border color",
-      "default": "border-body",
-      "options": [
-        { "value": "border-primary", "label": "Primary" },
-        { "value": "border-secondary", "label": "Secondary" },
-        { "value": "border-body", "label": "Body" },
-        { "value": "border-white", "label": "White" }
-      ]
-    },
-    {
-      "type": "range",
-      "id": "border_opacity",
-      "label": "Border opacity",
-      "min": 0,
-      "max": 100,
-      "step": 1,
-      "default": 100,
-      "unit": "%"
     },
     {
       "type": "select",
@@ -229,21 +59,9 @@
       "limit": 1,
       "settings": [
         {
-          "type": "text",
-          "id": "container_max_width",
-          "label": "Container max-width (px)",
-          "info": "Leave empty to use the global container width"
-        },
-        {
           "type": "image_picker",
           "id": "logo",
           "label": "Logo"
-        },
-        {
-          "type": "image_picker",
-          "id": "logo_transparent",
-          "label": "Logo - transparent bg",
-          "info": "NOTE: This feature is supported only in our Premium Shopify Themes. [Browse premium themes](https://www.kondasoft.com/collections/shopify-themes)"
         },
         {
           "type": "range",
@@ -261,38 +79,16 @@
           "default": "main-menu"
         },
         {
-          "type": "link_list",
-          "id": "collections_menu",
-          "label": "Collections Menu",
-          "info": "NOTE: This feature is supported only in our Premium Shopify Themes. [Browse premium themes](https://www.kondasoft.com/collections/shopify-themes)"
+          "type": "checkbox",
+          "id": "show_music_player",
+          "label": "Show music player",
+          "default": true
         },
         {
           "type": "checkbox",
           "id": "social_icons",
           "label": "Show social icons",
           "default": true
-        },
-        {
-          "type": "header",
-          "content": "Spacing"
-        },
-        {
-          "type": "range",
-          "id": "pt",
-          "label": "Top",
-          "min": 0,
-          "max": 20,
-          "step": 1,
-          "default": 3
-        },
-        {
-          "type": "range",
-          "id": "pb",
-          "label": "Bottom",
-          "min": 0,
-          "max": 20,
-          "step": 1,
-          "default": 3
         }
       ]
     },
@@ -302,21 +98,9 @@
       "limit": 1,
       "settings": [
         {
-          "type": "text",
-          "id": "container_max_width",
-          "label": "Container max-width (px)",
-          "info": "Leave empty to use the global container width"
-        },
-        {
           "type": "image_picker",
           "id": "logo",
           "label": "Logo"
-        },
-        {
-          "type": "image_picker",
-          "id": "logo_transparent",
-          "label": "Logo - transparent bg",
-          "info": "NOTE: This feature is supported only in our Premium Shopify Themes. [Browse premium themes](https://www.kondasoft.com/collections/shopify-themes)"
         },
         {
           "type": "range",
@@ -334,34 +118,117 @@
           "default": "main-menu"
         },
         {
-          "type": "header",
-          "content": "Spacing"
-        },
-        {
-          "type": "range",
-          "id": "pt",
-          "label": "Top",
-          "min": 0,
-          "max": 20,
-          "step": 1,
-          "default": 3
-        },
-        {
-          "type": "range",
-          "id": "pb",
-          "label": "Bottom",
-          "min": 0,
-          "max": 20,
-          "step": 1,
-          "default": 3
+          "type": "checkbox",
+          "id": "show_music_player",
+          "label": "Show music player",
+          "default": true
         }
       ]
     }
   ],
   "presets": [
     {
-      "name": "Navbar"
+      "name": "Singer Navbar"
     }
   ]
 }
 {% endschema %}
+
+<navbar-wrapper 
+  id="navbar-wrapper"
+  class="
+    {{ section.settings.bg_color }} 
+    {{ section.settings.text_color }} 
+    {{ section.settings.shadow }}
+  "
+  style="
+    --bs-bg-opacity: {{ section.settings.bg_opacity | append: '%' }};
+  ">
+  {% for block in section.blocks %}
+    {% if block.type == 'mobile' %}
+      <nav 
+        id="navbar-mobile" 
+        class="navbar d-lg-none p-0"
+        {{ block.shopify_attributes }}>
+        <div class="container-fluid">
+          <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <a class="navbar-brand mx-auto" href="{{ routes.root_url }}">
+            {% if block.settings.logo != blank %}
+              {{ block.settings.logo | image_url: width: 200 | image_tag:
+                class: 'img-fluid',
+                width: block.settings.logo_height,
+                height: '',
+                alt: shop.name
+              }}
+            {% else %}
+              {{ shop.name }}
+            {% endif %}
+          </a>
+          <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+            <div class="offcanvas-header">
+              <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+            </div>
+            <div class="offcanvas-body">
+              <ul class="navbar-nav justify-content-end flex-grow-1 pe-3">
+                {% for link in linklists[block.settings.main_menu].links %}
+                  <li class="nav-item">
+                    <a class="nav-link" href="{{ link.url }}">{{ link.title }}</a>
+                  </li>
+                {% endfor %}
+              </ul>
+              {% if block.settings.show_music_player %}
+                <div class="mt-3">
+                  <!-- Add your music player component here -->
+                  <p>Music Player Placeholder</p>
+                </div>
+              {% endif %}
+              {% if block.settings.social_icons %}
+                <div class="mt-3">
+                  {% render 'social-icons' %}
+                </div>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </nav>
+    {% else %}
+      <nav 
+        id="navbar-desktop" 
+        class="navbar navbar-expand-lg d-none d-lg-block p-0"
+        {{ block.shopify_attributes }}>
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{{ routes.root_url }}">
+            {% if block.settings.logo != blank %}
+              {{ block.settings.logo | image_url: width: 200 | image_tag:
+                class: 'img-fluid',
+                width: block.settings.logo_height,
+                height: '',
+                alt: shop.name
+              }}
+            {% else %}
+              {{ shop.name }}
+            {% endif %}
+          </a>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              {% for link in linklists[block.settings.main_menu].links %}
+                <li class="nav-item">
+                  <a class="nav-link" href="{{ link.url }}">{{ link.title }}</a>
+                </li>
+              {% endfor %}
+            </ul>
+            {% if block.settings.show_music_player %}
+              <div class="ms-auto">
+                <!-- Add your music player component here -->
+                <p>Music Player Placeholder</p>
+              </div>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+    {% endif %}
+  {% endfor %}
+</navbar-wrapper>
