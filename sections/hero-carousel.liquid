@@ -52,15 +52,15 @@
           {{ 'lifestyle-1' | placeholder_svg_tag }}
         {% endif %}
       </div>
-      <div class="carousel-caption carousel-caption-center">
-        <div class="carousel-caption-inner" style="max-width: 900px;">
-          <h2 class="title mb-4 h1">
+      <div class="carousel-caption">
+        <div class="carousel-caption-inner">
+          <h2 class="title">
             {{ section.settings.album_name }}................{{ section.settings.album_subtitle }}
           </h2>
-          <p class="subtitle fs-lg">Out now</p>
+          <p class="subtitle">Out now</p>
           {% if section.settings.cta_link != blank %}
-            <div class="btn-wrapper m-n2">
-              <a class="btn m-2 btn-dark fs-md" href="{{ section.settings.cta_link }}">
+            <div class="btn-wrapper">
+              <a class="btn btn-light" href="{{ section.settings.cta_link }}">
                 {{ section.settings.cta_text }}
               </a>
             </div>
@@ -76,7 +76,7 @@
     position: relative;
     overflow: hidden;
     height: 100vh;
-    border: 5px solid red; /* Debug outline */
+    width: 100%;
   }
   #hero-carousel-{{ section.id }} .media-wrapper {
     position: absolute;
@@ -93,44 +93,43 @@
   }
   #hero-carousel-{{ section.id }} .carousel-caption {
     position: absolute;
-    top: 0;
+    bottom: 0;
     left: 0;
     right: 0;
-    bottom: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     z-index: 2;
-    color: black;
+    color: white;
     text-align: center;
-    border: 5px solid blue; /* Debug outline */
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
   }
   #hero-carousel-{{ section.id }} .carousel-caption-inner {
-    background-color: rgba(255, 255, 255, 0.7); /* Semi-transparent white background */
-    padding: 20px;
-    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    height: 50vh;
   }
   #hero-carousel-{{ section.id }} .title {
-    font-size: 3rem;
-    margin-bottom: 1rem;
-    font-weight: bold;
-    text-shadow: 2px 2px 4px rgba(255,255,255,0.5);
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    font-weight: normal;
+    font-style: italic;
   }
   #hero-carousel-{{ section.id }} .subtitle {
     font-size: 1.5rem;
     margin-bottom: 2rem;
-    text-shadow: 1px 1px 2px rgba(255,255,255,0.5);
   }
-  #hero-carousel-{{ section.id }} .btn-dark {
-    background-color: black;
-    color: white;
-    border: 2px solid black;
+  #hero-carousel-{{ section.id }} .btn-light {
+    background-color: white;
+    color: black;
+    border: none;
     padding: 10px 30px;
     font-size: 1rem;
     text-transform: uppercase;
+    font-weight: bold;
+    border-radius: 5px;
   }
-  #hero-carousel-{{ section.id }} .btn-dark:hover {
-    background-color: white;
-    color: black;
+  #hero-carousel-{{ section.id }} .btn-light:hover {
+    background-color: #f0f0f0;
   }
 </style>
